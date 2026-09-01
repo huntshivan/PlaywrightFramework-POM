@@ -1,0 +1,2 @@
+Email id entered is shivansharma07@gmail.com and password entered is Selenium@12345
+Home Page url is https://naveenautomationlabs.com/opencart/index.php?route=account/account

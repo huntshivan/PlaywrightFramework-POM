@@ -1,0 +1,2 @@
+Email id entered is shivansharma07@gmail.com and password entered is Selenium@12345
+Sections in home page are My Account,My Orders,My Affiliate Account,Newsletter
