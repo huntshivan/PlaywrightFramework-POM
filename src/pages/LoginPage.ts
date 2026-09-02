@@ -8,6 +8,8 @@ export class LoginPage extends BasePage {
     private readonly password: Locator;
     private readonly loginBtn: Locator;
     private readonly forgottenPassword: Locator;
+    private readonly loginErrorMessage: Locator;
+    private readonly registerBtn: Locator;
 
     //constructor of class...init page locators
     constructor(page: Page) {
@@ -16,6 +18,8 @@ export class LoginPage extends BasePage {
         this.password = page.getByRole('textbox', {name: 'Password'});
         this.loginBtn = page.getByRole('button', {name: 'Login'});
         this.forgottenPassword = page.getByRole('link', {name: 'Forgotten Password'}).first();
+        this.loginErrorMessage = page.locator('.alert.alert-danger.alert-dismissible');
+        this.registerBtn = page.getByRole('link', {name: 'Register'}).last();
     }
     
     async goToLoginPage() {
@@ -40,6 +44,14 @@ export class LoginPage extends BasePage {
         console.log(`Email id entered is ${email} and password entered is ${password}`);
         await this.loginBtn.click();
 
+    }
+
+    async isInvalidLoginErrorDisplayed(): Promise<boolean> {
+        return await this.loginErrorMessage.isVisible();
+    }
+
+    async doRegister() {
+        await this.registerBtn.click();
     }
 
 }

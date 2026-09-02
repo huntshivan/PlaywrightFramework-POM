@@ -8,7 +8,7 @@ let homePage: HomePage;
 test.beforeEach(async({page}) => {
     loginPage = new LoginPage(page);
     await loginPage.goToLoginPage();
-    await loginPage.doLogin('shivansharma07@gmail.com', 'Selenium@12345');
+    await loginPage.doLogin(process.env.EMAIL_ID!, process.env.PASSWORD!);
     homePage = new HomePage(page);
 })
 

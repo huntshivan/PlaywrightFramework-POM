@@ -28,7 +28,7 @@ test('Forgotten Password link displayed test', async() => {
 });
 
 test('user successful login test', async() => {
-    await loginPage.doLogin('shivansharma07@gmail.com', 'Selenium@12345');
+    await loginPage.doLogin(process.env.EMAIL_ID!, process.env.PASSWORD!);
     expect(await homePage.isLogoutLinkVisible()).toBeTruthy();
     expect(await homePage.getHomePageTitle()).toBe('My Account');
 })

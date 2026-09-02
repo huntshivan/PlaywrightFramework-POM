@@ -1,0 +1,5 @@
+firstname,lastname,email,telephone,password
+allan,smith,allan@test.com,2342,pw@123
+,test,test@test.com,+1122,pwtest123
+mark,,mark@test.com,+011,test123
+joe,cole,,333000,rest123

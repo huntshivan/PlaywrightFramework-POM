@@ -2,7 +2,7 @@ import {test, expect} from '../src/fixtures/pageFixtures'
 
 test.beforeEach(async({loginPage}) => {
     await loginPage.goToLoginPage();
-    await loginPage.doLogin('shivansharma07@gmail.com', 'Selenium@12345');
+    await loginPage.doLogin(process.env.EMAIL_ID!, process.env.PASSWORD!);
 })
 
 test('home page title test', async({homePage}) => {
