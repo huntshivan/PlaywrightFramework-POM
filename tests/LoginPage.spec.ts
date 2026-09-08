@@ -2,6 +2,8 @@
 import {test, expect} from '../src/fixtures/pageFixtures'
 import { LoginPage } from '../src/pages/LoginPage';
 import { CsvHelper } from '../src/utils/CsvHelper';
+import { ExcelHelper } from '../src/utils/ExcelHelper';
+import { JsonHelper } from '../src/utils/JsonHelper';
 
 
 test.beforeEach(async ({loginPage}) => {
@@ -47,6 +49,24 @@ let loginTestData = CsvHelper.readCSV('src/testdata/logindata.csv');
 for (let row of loginTestData) {
     test(`Invalid login test - ${row.emailid} - ${row.password}`, async( {loginPage} ) => {
         await loginPage.doLogin(row.emailid, row.password);
+        expect(await loginPage.isInvalidLoginErrorDisplayed()).toBeTruthy();
+    });
+}
+
+//using excel sheet
+let loginExcelTestData = ExcelHelper.readExcel('src/testdata/LoginData.xlsx','login');
+for (let row of loginExcelTestData) {
+    test(`Invalid login test from excel - ${row.username} - ${row.password}`, async( {loginPage} ) => {
+        await loginPage.doLogin(row.username, row.password);
+        expect(await loginPage.isInvalidLoginErrorDisplayed()).toBeTruthy();
+    });
+}
+
+//using json file
+let loginJsonTestData = JsonHelper.readJson('src/testdata/LoginData.json');
+for (let row of loginJsonTestData) {
+    test(`Invalid login test from json - ${row.username} - ${row.password}`, async( {loginPage} ) => {
+        await loginPage.doLogin(row.username, row.password);
         expect(await loginPage.isInvalidLoginErrorDisplayed()).toBeTruthy();
     });
 }
