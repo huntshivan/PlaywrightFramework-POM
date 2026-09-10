@@ -45,12 +45,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install csv dependency
-        run: npm install csv-parse
-
-      - name: Install excel dependency
-        run: npm install xlsx
-
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
