@@ -45,6 +45,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug - Check environment variables
+        run: |
+          echo "BASE_URL is set: ${{ secrets.BASE_URL != '' }}"
+          echo "USERNAME is set: ${{ secrets.USERNAME != '' }}"
+          echo "PASSWORD is set: ${{ secrets.PASSWORD != '' }}"
+
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
@@ -58,7 +64,7 @@ jobs:
         env:
           ENV: ${{ github.event.inputs.environment || 'QA' }}
           BASE_URL: ${{ secrets.BASE_URL }}
-          EMAIL_ID: ${{ secrets.USERNAME }}
+          EMAIL_ID: ${{ secrets.EMAIL_ID }}
           PASSWORD: ${{ secrets.PASSWORD }}
           # API_BASE_URL: ${{ secrets.API_BASE_URL }}
           # API_TOKEN: ${{ secrets.API_TOKEN }}
