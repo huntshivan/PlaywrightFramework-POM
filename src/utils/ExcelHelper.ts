@@ -1,4 +1,4 @@
-import XLSX from "XLSX";
+import XLSX from "xlsx";
 
 export class ExcelHelper {
     static readExcel(filePath:string, sheetName?:string): Record<string,string>[] {
