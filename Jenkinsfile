@@ -23,13 +23,56 @@ def runPlaywright(String envName, String tag) {
 }
 
 def publishReports(String label, String envName) {
-    sh "mkdir -p reports-${envName}/html reports-${envName}/allure"
-    sh "cp -r reports/html-report/* reports-${envName}/html/ || true"
-    sh "allure generate allure-results --clean -o reports-${envName}/allure || true"
-    [html: 'PW HTML', allure: 'Allure'].each { folder, name ->
+
+    def htmlSource = 'reports/html-report'
+    def htmlTarget = "reports-${envName}/html"
+    def allureTarget = "reports-${envName}/allure"
+
+    // Check Playwright HTML report
+    sh """
+        echo "Checking Playwright HTML report..."
+
+        pwd
+
+        ls -lah reports/html-report || true
+
+        if [ ! -f "${htmlSource}/index.html" ]; then
+            echo "ERROR: Playwright HTML report not generated!"
+            exit 1
+        fi
+
+        mkdir -p "${htmlTarget}" "${allureTarget}"
+
+        cp -R "${htmlSource}/." "${htmlTarget}/"
+
+        test -s "${htmlTarget}/index.html"
+
+        echo "HTML report copied successfully."
+    """
+
+    // Generate Allure report
+    sh """
+        if [ -d allure-results ] && [ -n "\$(find allure-results -type f -print -quit)" ]; then
+            allure generate allure-results --clean -o "${allureTarget}"
+        else
+            echo "No Allure results found. Skipping Allure generation."
+        fi
+    """
+
+    // Publish Playwright HTML report
+    publishHTML(target: [
+        reportName: "${label} - PW HTML Report",
+        reportDir: htmlTarget,
+        reportFiles: 'index.html',
+        keepAll: true,
+        alwaysLinkToLastBuild: true
+    ])
+
+    // Publish Allure HTML report only if generated
+    if (fileExists("${allureTarget}/index.html")) {
         publishHTML(target: [
-            reportName: "${label} - ${name} Report",
-            reportDir: "reports-${envName}/${folder}",
+            reportName: "${label} - Allure Report",
+            reportDir: allureTarget,
             reportFiles: 'index.html',
             keepAll: true,
             alwaysLinkToLastBuild: true
