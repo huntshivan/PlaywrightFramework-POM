@@ -5,13 +5,13 @@ test.beforeEach(async({loginPage}) => {
     await loginPage.doLogin(process.env.EMAIL_ID!, process.env.PASSWORD!);
 })
 
-test('home page title test', async({homePage}) => {
+test('home page title test @smoke', async({homePage}) => {
     let actualHomePageTitle = await homePage.getHomePageTitle();
     console.log(`Home Page title is ${actualHomePageTitle}`);
     expect(actualHomePageTitle).toBe('My Account');
 });
 
-test('home page url test', async({homePage}) => {
+test('home page url test @smoke', async({homePage}) => {
     let actualHomePageURL = homePage.getHomePageURL();
     console.log(`Home Page url is ${actualHomePageURL}`);
     expect(actualHomePageURL).toContain('route=account/account');
@@ -27,13 +27,13 @@ test('home page account header test', async({homePage}) => {
     expect(actualHomePageLinkHeader).toBe('Account');
 });
 
-test('home page section count test', async({homePage}) => {
+test('home page section count test @regression', async({homePage}) => {
     let actualHomePageSectionCount = await homePage.getHomePageSectionCount();
     console.log(`Total number of sections in home page is ${actualHomePageSectionCount}`);
     expect(actualHomePageSectionCount).toBe(4);
 });
 
-test('home page section list test', async({homePage}) => {
+test('home page section list test @regression', async({homePage}) => {
     let actualHomePageSectionNames = await homePage.getHomePageSectionNames();
     console.log(`Sections in home page are ${actualHomePageSectionNames}`);
     expect(actualHomePageSectionNames).toHaveLength(4); //same as above count test

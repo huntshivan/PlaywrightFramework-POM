@@ -26,7 +26,7 @@ test('Forgotten Password link displayed test', async({loginPage}) => {
     expect(loginPage.isForgottenPasswordLinkVisible).toBeTruthy();
 });
 
-test('user successful login test', async({loginPage, homePage}) => {
+test('user successful login test @regression', async({loginPage, homePage}) => {
     await loginPage.doLogin(process.env.EMAIL_ID!, process.env.PASSWORD!);
     expect(await homePage.isLogoutLinkVisible()).toBeTruthy();
     expect(await homePage.getHomePageTitle()).toBe('My Account');
