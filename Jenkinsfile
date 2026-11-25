@@ -90,8 +90,8 @@ pipeline {
     }
 
     parameters {
-        choice(name: 'ENVIRONMENT', choices: ['qa', 'uat'],
-               description: 'Target environment (qa or uat only)')
+        choice(name: 'ENVIRONMENT', choices: ['qa', 'stage'],
+               description: 'Target environment (qa or stage only)')
         choice(name: 'BROWSER', choices: ['chromium', 'firefox', 'webkit'],
                description: 'Browser project')
         choice(name: 'TEST_SUITE', choices: ['smoke', 'regression', 'api-smoke', 'all'],
